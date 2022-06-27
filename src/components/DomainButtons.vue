@@ -1,26 +1,24 @@
 <template>
 	<div class="domains-container">
-    <DomainButton 
-      v-for="(domain, index) in domains"
-      v-model="domains[index].selected" 
-      :domain="domain" 
-      :key="index"
-    />
+		<DomainButton v-for="(domain, index) in domains" v-model="domains[index].selected" :domain="domain" :key="domain.class" />
+		<span @click="showAll">Show</span>
+		<span @click="hideAll">Hide</span>
 	</div>
 </template>
 
 <script>
-  import DomainButton from "./DomainButton.vue"
+
+	import DomainButton from './DomainButton.vue';
 	export default {
-	name: 'DomainButtons',
-    components: { DomainButton },
+		name: 'DomainButtons',
+		components: { DomainButton },
 		data() {
 			return {
 				domains: [
 					{
 						selected: true,
 						name: 'Diversity, Equity, & Inclusion',
-						class: 'dei', 
+						class: 'dei',
 						icon: 'https://guidance.wgu.edu/standards/wp-content/uploads/sites/2/2022/06/diversity-equity-inclusion.svg',
 						iconGray: 'https://guidance.wgu.edu/standards/wp-content/uploads/sites/2/2022/06/diversity-equity-inclusion-gray.svg',
 					},
@@ -83,13 +81,21 @@
 				],
 			};
 		},
+		methods: {
+			showAll() {
+				this.domains.forEach((domain) => { domain.selected = true; })
+			},
+			hideAll() {
+				this.domains.forEach((domain) => { domain.selected = false; })
+			},
+		},
 	};
 </script>
 <style>
-.domains-container{
-    display: flex;
-    flex-direction: row;
-    flex-wrap: no-wrap;
-    justify-content: center;
-}
+	.domains-container {
+		display: flex;
+		flex-direction: row;
+		flex-wrap: no-wrap;
+		justify-content: center;
+	}
 </style>
