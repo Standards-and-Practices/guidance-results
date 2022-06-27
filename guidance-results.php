@@ -24,6 +24,13 @@
 
 
 function wgu_domains_function(){
-    return 'Follow us on <a rel="nofollow" href="https://twitter.com/Hostinger?s=20">Twitter</a>';
+    return '<wgu-domain-buttons></wgu-domain-buttons>';
 }
-add_shortcode('wgu_domains', 'wgu_domains_function');
+add_shortcode('guidance_results', 'wgu_domains_function');
+
+
+
+function guidance_scripts($hook) {
+    wp_enqueue_script( 'guidance_scripts', plugins_url( 'dist/assets/index.de493027.js', __FILE__ ));
+}
+add_action('wp_enqueue_scripts', 'guidance_scripts');

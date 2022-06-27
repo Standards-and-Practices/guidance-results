@@ -1,26 +1,30 @@
 <template>
 	<div class="domains-container">
-		<DomainButton v-for="(domain, index) in domains" v-model="domain.selected" :domainIndex="index" :domain="domain" :key="domain.class" @click="toggle(index)" />
-		<div class="domain-checkbox" @click="toggleAll()">
+
+		<div class="domain-checkbox" v-for="domain in domains" :key="domain.class" @click="toggle(index)">
+			<img class="domain-button" :src="rightIcon(domain)" />
+			<span>{{ domain.name }}</span>
+		</div>
+
+		<div class="domain-checkbox">
 			<label @click="showAll">
 				<img class="domain-button" src="https://guidance.wgu.edu/standards/wp-content/uploads/sites/2/2022/06/all.svg" />
 				<span>Show All</span>
 			</label>
 		</div>
-		<div class="domain-checkbox" @click="toggleAll()">
+		<div class="domain-checkbox">
 			<label @click="hideAll">
 				<img class="domain-button" src="https://guidance.wgu.edu/standards/wp-content/uploads/sites/2/2022/06/none.svg" />
 				<span>Hide All</span>
 			</label>
 		</div>
+
 	</div>
 </template>
 
 <script>
-	import DomainButton from './DomainButton.vue';
 	export default {
 		name: 'DomainButtons',
-		components: { DomainButton },
 		data() {
 			return {
 				domains: [
@@ -127,6 +131,9 @@
 				});
 				this.persist();
 			},
+			rightIcon(domain) {
+				return domain.selected ? domain.icon : domain.iconGray;
+			},
 		},
 		computed: {
 			countSelected() {
@@ -141,5 +148,25 @@
 		flex-direction: row;
 		flex-wrap: no-wrap;
 		justify-content: center;
+	}
+	.domain-checkbox {
+		display: flex;
+		flex-direction: column;
+		text-align: center;
+	}
+	.domain-checkbox input[type='checkbox'] {
+		display: none;
+	}
+	.domain-checkbox input[type='checkbox']:checked + label {
+		opacity: 1;
+	}
+	.domain-button {
+		height: 50px;
+	}
+	.domain-checkbox span {
+		font-weight: 700;
+		text-transform: uppercase;
+		display: block;
+		width: 160px;
 	}
 </style>
