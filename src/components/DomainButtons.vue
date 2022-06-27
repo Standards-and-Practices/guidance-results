@@ -1,13 +1,22 @@
 <template>
 	<div class="domains-container">
-		<DomainButton v-for="(domain, index) in domains" v-model="domains[index].selected" :domain="domain" :key="domain.class" />
-		<span @click="showAll">Show</span>
-		<span @click="hideAll">Hide</span>
+		<DomainButton v-for="(domain, index) in domains" v-model="domain.selected" :domainIndex="index" :domain="domain" :key="domain.class" @click="toggle(index)" />
+		<div class="domain-checkbox" @click="toggleAll()">
+			<label @click="showAll">
+				<img class="domain-button" src="https://guidance.wgu.edu/standards/wp-content/uploads/sites/2/2022/06/all.svg" />
+				<span>Show All</span>
+			</label>
+		</div>
+		<div class="domain-checkbox" @click="toggleAll()">
+			<label @click="hideAll">
+				<img class="domain-button" src="https://guidance.wgu.edu/standards/wp-content/uploads/sites/2/2022/06/none.svg" />
+				<span>Hide All</span>
+			</label>
+		</div>
 	</div>
 </template>
 
 <script>
-
 	import DomainButton from './DomainButton.vue';
 	export default {
 		name: 'DomainButtons',
@@ -81,12 +90,47 @@
 				],
 			};
 		},
+		mounted() {
+			if (localStorage.domains) {
+				this.retrieve();
+			}
+		},
 		methods: {
+			persist() {
+				localStorage.domains = JSON.stringify(this.domains);
+				console.log('persist');
+			},
+			retrieve() {
+				this.domains = JSON.parse(localStorage.domains);
+			},
+			toggle(index) {
+				this.domains[index].selected = !this.domains[index].selected;
+				this.persist();
+			},
+			show(domainIndex) {
+				this.domains[domainIndex].selected = true;
+				this.persist();
+			},
+			hide(domainIndex) {
+				this.domains[domainIndex].selected = false;
+				this.persist();
+			},
 			showAll() {
-				this.domains.forEach((domain) => { domain.selected = true; })
+				this.domains.forEach((domain) => {
+					domain.selected = true;
+				});
+				this.persist();
 			},
 			hideAll() {
-				this.domains.forEach((domain) => { domain.selected = false; })
+				this.domains.forEach((domain) => {
+					domain.selected = false;
+				});
+				this.persist();
+			},
+		},
+		computed: {
+			countSelected() {
+				return this.domains.filter((domain) => domain.selected).length;
 			},
 		},
 	};

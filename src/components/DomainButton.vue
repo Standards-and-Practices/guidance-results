@@ -1,10 +1,7 @@
 <template>
-	<div class="domain-checkbox" :class="domain.class" @click="toggleDomainState()">
-		<input :id="domain.class" type="checkbox" name="_domains" v-model="modelValue" />
-		<label :for="domain.class">
-			<img class="domain-button" :src="rightIcon" />
-			<span>{{ domain.name }}</span>
-		</label>
+	<div class="domain-checkbox" :class="domain.class">
+		<img class="domain-button" :src="rightIcon" />
+		<span>{{ domain.name }}</span>
 	</div>
 </template>
 
@@ -12,27 +9,13 @@
 	export default {
 		name: 'DomainButton',
 		props: {
-			modelValue: '',
-			domain: '',
-		},
-		data() {
-			return {
-				selected: this.modelValue,
-			};
-		},
-		methods: {
-			toggleDomainState() {
-				this.selected = !this.selected;
-			},
-			updateValue() {
-				this.$emit('update:modelValue', this.selected);
-			},
+			domain: Object,
 		},
 		computed: {
 			rightIcon() {
-				return this.modelValue ? this.domain.icon: this.domain.iconGray;
-			}
-		}
+				return this.domain.selected? this.domain.icon : this.domain.iconGray;
+			},
+		},
 	};
 </script>
 <style>
@@ -50,7 +33,7 @@
 	.domain-button {
 		height: 50px;
 	}
-	.domain-checkbox label span {
+	.domain-checkbox span {
 		font-weight: 700;
 		text-transform: uppercase;
 		display: block;
