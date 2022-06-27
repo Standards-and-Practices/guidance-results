@@ -21,3 +21,9 @@
  * Author URI:        https://www.wgu.edu
  * GitHub Plugin URI: Standards-and-Practices/guidance-results
  */
+
+
+function wgu_domains_function(){
+    return 'Follow us on <a rel="nofollow" href="https://twitter.com/Hostinger?s=20">Twitter</a>';
+}
+add_shortcode('wgu_domains', 'wgu_domains_function');
