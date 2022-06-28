@@ -6,13 +6,13 @@
 			<span>{{ domain.name }}</span>
 		</div>
 
-		<div class="domain-checkbox">
+		<div class="domain-checkbox" v-if="countSelected < domains.length">
 			<label @click="showAll">
 				<img class="domain-button" src="https://guidance.wgu.edu/standards/wp-content/uploads/sites/2/2022/06/all.svg" />
 				<span>Show All</span>
 			</label>
 		</div>
-		<div class="domain-checkbox">
+		<div class="domain-checkbox" v-if="countSelected > 0">
 			<label @click="hideAll">
 				<img class="domain-button" src="https://guidance.wgu.edu/standards/wp-content/uploads/sites/2/2022/06/none.svg" />
 				<span>Hide All</span>
@@ -138,11 +138,11 @@
 				return domain.selected ? domain.icon : domain.iconGray;
 			},
 		},
-		// computed: {
-		// 	countSelected() {
-		// 		return this.domains.filter((domain) => domain.selected).length;
-		// 	},
-		// },
+		computed: {
+			countSelected() {
+				return this.domains.filter((domain) => domain.selected).length;
+			},
+		},
 	};
 </script>
 <style>
