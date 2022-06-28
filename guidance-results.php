@@ -32,6 +32,6 @@ add_shortcode('guidance_results', 'wgu_domains_function');
 function guidance_scripts($hook)
 {
 
-    wp_enqueue_script('guidance_scripts', plugins_url('dist/assets/index.e380eca4.js', __FILE__), array(), "1.0.0", true);
+    wp_enqueue_script('guidance_scripts', plugins_url('dist/assets/index.78ff9ccb.js', __FILE__), array(), "1.0.0", true);
 }
 add_action('wp_enqueue_scripts', 'guidance_scripts');

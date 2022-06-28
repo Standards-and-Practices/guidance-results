@@ -7,4 +7,7 @@
 import { createApp } from 'vue'
 import DomainButtons from './components/DomainButtons.vue'
 
-createApp(DomainButtons).mount('#app')
+const app = createApp(DomainButtons)
+console.log(app.config)
+app.config.devtools = true
+app.mount('#app')
