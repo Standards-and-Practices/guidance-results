@@ -1,5 +1,4 @@
-import { defineCustomElement } from 'vue';
-import DomainButtonsComponent from './components/DomainButtons.c3.vue'
+import { createApp } from 'vue'
+import DomainButtons from './components/DomainButtons.vue'
 
-const DomainButtons = defineCustomElement(DomainButtonsComponent);
-customElements.define('wgu-domain-buttons', DomainButtons);
+createApp(DomainButtons).mount('#app')

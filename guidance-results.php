@@ -23,14 +23,14 @@
  */
 
 
-function wgu_domains_function(){
+function wgu_domains_function()
+{
     return '<wgu-domain-buttons></wgu-domain-buttons>';
 }
 add_shortcode('guidance_results', 'wgu_domains_function');
 
-
-
-function guidance_scripts($hook) {
-    wp_enqueue_script( 'guidance_scripts', plugins_url( 'dist/assets/index.de493027.js', __FILE__ ));
+function guidance_scripts($hook)
+{
+    wp_enqueue_script('guidance_scripts', plugins_url('dist/assets/index.de493027.js', __FILE__));
 }
 add_action('wp_enqueue_scripts', 'guidance_scripts');

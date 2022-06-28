@@ -1,8 +1,8 @@
 <template>
-	<div class="domains-container">
+	<div class="domains-container" v-if="domains">
 
-		<div class="domain-checkbox" v-for="domain in domains" :key="domain.class" @click="toggle(index)">
-			<img class="domain-button" :src="rightIcon(domain)" />
+		<div class="domain-checkbox" v-for="(domain, index) in domains" :key="domain.class" @click="toggle(index)">
+			<img class="domain-button" :src="domain.selected? domain.icon: domain.iconGray" />
 			<span>{{ domain.name }}</span>
 		</div>
 
@@ -27,6 +27,7 @@
 		name: 'DomainButtons',
 		data() {
 			return {
+				url: '',
 				domains: [
 					{
 						selected: true,
@@ -98,25 +99,27 @@
 			if (localStorage.domains) {
 				this.retrieve();
 			}
+			this.url = window.location.href;
 		},
 		methods: {
 			persist() {
+				this.$forceUpdate();
 				localStorage.domains = JSON.stringify(this.domains);
 				console.log('persist');
 			},
 			retrieve() {
 				this.domains = JSON.parse(localStorage.domains);
 			},
-			toggle(index) {
+			async toggle(index) {
 				this.domains[index].selected = !this.domains[index].selected;
 				this.persist();
 			},
-			show(domainIndex) {
-				this.domains[domainIndex].selected = true;
+			show(index) {
+				this.domains[index].selected = true;
 				this.persist();
 			},
-			hide(domainIndex) {
-				this.domains[domainIndex].selected = false;
+			hide(index) {
+				this.domains[index].selected = false;
 				this.persist();
 			},
 			showAll() {
@@ -135,38 +138,13 @@
 				return domain.selected ? domain.icon : domain.iconGray;
 			},
 		},
-		computed: {
-			countSelected() {
-				return this.domains.filter((domain) => domain.selected).length;
-			},
-		},
+		// computed: {
+		// 	countSelected() {
+		// 		return this.domains.filter((domain) => domain.selected).length;
+		// 	},
+		// },
 	};
 </script>
 <style>
-	.domains-container {
-		display: flex;
-		flex-direction: row;
-		flex-wrap: no-wrap;
-		justify-content: center;
-	}
-	.domain-checkbox {
-		display: flex;
-		flex-direction: column;
-		text-align: center;
-	}
-	.domain-checkbox input[type='checkbox'] {
-		display: none;
-	}
-	.domain-checkbox input[type='checkbox']:checked + label {
-		opacity: 1;
-	}
-	.domain-button {
-		height: 50px;
-	}
-	.domain-checkbox span {
-		font-weight: 700;
-		text-transform: uppercase;
-		display: block;
-		width: 160px;
-	}
+	
 </style>
