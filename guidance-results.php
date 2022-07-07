@@ -32,6 +32,10 @@ add_shortcode('guidance_results', 'wgu_domains_function');
 function guidance_scripts($hook)
 {
 
-    wp_enqueue_script('guidance_scripts', plugins_url('dist/assets/index.78ff9ccb.js', __FILE__), array(), "1.0.0", true);
+    foreach( glob( get_template_directory(). '/dist/assets/*.js' ) as $file ) {
+        // $file contains the name and extension of the file
+        wp_enqueue_script( $file, get_template_directory_uri().'/path/'.$file);
+    }
+
 }
 add_action('wp_enqueue_scripts', 'guidance_scripts');
